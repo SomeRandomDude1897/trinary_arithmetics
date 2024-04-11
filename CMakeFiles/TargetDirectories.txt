@@ -1,0 +1,3 @@
+C:/Users/romik/projects/ternary_arithmetics/CMakeFiles/main.dir
+C:/Users/romik/projects/ternary_arithmetics/CMakeFiles/edit_cache.dir
+C:/Users/romik/projects/ternary_arithmetics/CMakeFiles/rebuild_cache.dir
