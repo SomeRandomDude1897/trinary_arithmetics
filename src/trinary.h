@@ -12,7 +12,12 @@ class trinary {
   std::vector<unsigned char> frac_seq;
 
  public:
-  void draw() {
+  template <typename B>
+  std::vector<unsigned char>* getSeqPointer() {
+    return *seq;
+  }
+  std::vector<unsigned char>* getFracSeqPointer() { return *frac_seq; }
+  void draw_raw() {
     for (int i = 0; i < seq_size; i++) {
       std::cout << (int)(seq[i]);
     }
@@ -22,7 +27,42 @@ class trinary {
     }
     std::cout << "\n";
   }
-  template <typename B>
+
+  void operator=(trinary inp) {
+    if (inp.seq.size() != seq.size()) {
+      throw std::logic_error("Cannot equate numbers of different size!!");
+    } else {
+      seq = &inp.getSeqPointer();
+      frac_seq = &inp.getFracSeqPointer();
+    }
+  }
+  void operator+=(trinary inp) {
+    if (inp.seq.size() != seq.size()) {
+      throw std::logic_error("Cannot summarize numbers of different size!!");
+    }
+    unsigned char left = 0;
+    trinary new_<seq>(0);
+    for (int i = seq_size; i > -1; i--) {
+      unsigned char rs = &inp.getFracSeqPointer()[i] + frac_seq[i] + left;
+      left = 0;
+      if (rs > 2) {
+        left = 1;
+        frac_seq[i] = 2;
+      } else {
+        frac_seq[i] = rs;
+      }
+    }
+    for (int i = 0; i < seq_size; i++) {
+      unsigned char rs = &inp.getSeqPointer()[i] + seq[i] + left;
+      left = 0;
+      if (rs > 2) {
+        left = 1;
+        seq[i] = 2;
+      } else {
+        seq[i] = rs;
+      }
+    }
+  }
   trinary(B number = 0.0) {
     seq.reserve(seq_size);
     frac_seq.reserve(seq_size);
