@@ -12,11 +12,8 @@ class trinary {
   std::vector<unsigned char> frac_seq;
 
  public:
-  template <typename B>
-  std::vector<unsigned char>* getSeqPointer() {
-    return *seq;
-  }
-  std::vector<unsigned char>* getFracSeqPointer() { return *frac_seq; }
+  std::vector<unsigned char>* getSeqPointer() { return &seq; }
+  std::vector<unsigned char>* getFracSeqPointer() { return &frac_seq; }
   void draw_raw() {
     for (int i = 0; i < seq_size; i++) {
       std::cout << (int)(seq[i]);
@@ -29,7 +26,7 @@ class trinary {
   }
 
   void operator=(trinary inp) {
-    if (inp.seq.size() != seq.size()) {
+    if (inp.getSeqPointer()->size() != seq.size()) {
       throw std::logic_error("Cannot equate numbers of different size!!");
     } else {
       seq = &inp.getSeqPointer();
@@ -37,33 +34,44 @@ class trinary {
     }
   }
   void operator+=(trinary inp) {
-    if (inp.seq.size() != seq.size()) {
+    if (inp.getSeqPointer()->size() != seq.size()) {
       throw std::logic_error("Cannot summarize numbers of different size!!");
-    }
-    unsigned char left = 0;
-    trinary new_<seq>(0);
-    for (int i = seq_size; i > -1; i--) {
-      unsigned char rs = &inp.getFracSeqPointer()[i] + frac_seq[i] + left;
-      left = 0;
-      if (rs > 2) {
-        left = 1;
-        frac_seq[i] = 2;
-      } else {
-        frac_seq[i] = rs;
+    } else {
+      std::cout << frac_seq.size() << '\n';
+      std::cout << seq.size() << '\n';
+      std::cout << (int)seq[29] << '\n';
+
+      unsigned char left = 0;
+      for (int i = seq_size - 1; i > -1; i--) {
+        unsigned char rs = static_cast<unsigned char>(
+            *(inp.getFracSeqPointer()->begin() + i) + frac_seq[i] + left);
+        left = 0;
+        if (rs > 2) {
+          left = rs % 3;
+          frac_seq[i] = static_cast<unsigned char>(2);
+        } else {
+          frac_seq[i] = rs;
+        }
       }
-    }
-    for (int i = 0; i < seq_size; i++) {
-      unsigned char rs = &inp.getSeqPointer()[i] + seq[i] + left;
       left = 0;
-      if (rs > 2) {
-        left = 1;
-        seq[i] = 2;
-      } else {
-        seq[i] = rs;
+      for (int i = 0; i < seq_size; i++) {
+        unsigned char rs = static_cast<unsigned char>(
+            *(inp.getSeqPointer()->begin() + i) + seq[i] + left);
+        left = 0;
+        std::cout << rs << '\n';
+        if (rs > 2) {
+          left = 1;
+          seq[i] = static_cast<unsigned char>(2);
+        } else {
+          seq[i] = rs;
+        }
       }
+      std::cout << "Summ done" << '\n';
     }
+    return;
   }
-  trinary(B number = 0.0) {
+  template <typename B>
+  trinary(B number) {
     seq.reserve(seq_size);
     frac_seq.reserve(seq_size);
     std::cout << sizeof(B) << '\n';
@@ -76,7 +84,7 @@ class trinary {
     unsigned long long pow_10 = pow(10, seq_size);
     unsigned long long frac_part =
         static_cast<unsigned long long>((number - whole_part) * pow_10 / 10);
-    std::vector<short> temp_seq(seq_size);
+    std::vector<unsigned> temp_seq(seq_size);
     int j = 0;
     while (whole_part > 0) {
       short temp = whole_part % 3;
@@ -97,7 +105,7 @@ class trinary {
           seq[x] = static_cast<unsigned char>(0);
         }
       } else {
-        seq[x] = static_cast<unsigned char>(temp_seq[x]);
+        seq[x] = temp_seq[x];
       }
     }
     int accuracy_iterator = 0;
