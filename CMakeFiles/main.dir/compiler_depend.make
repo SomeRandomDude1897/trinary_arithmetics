@@ -8,6 +8,7 @@ CMakeFiles/main.dir/src/main.cpp.obj: src/main.cpp \
   C:/msys64/ucrt64/include/_mingw_secapi.h \
   C:/msys64/ucrt64/include/_mingw_stat64.h \
   C:/msys64/ucrt64/include/_timeval.h \
+  C:/msys64/ucrt64/include/c++/13.2.0/array \
   C:/msys64/ucrt64/include/c++/13.2.0/backward/binders.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bit \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/alloc_traits.h \
@@ -52,15 +53,12 @@ CMakeFiles/main.dir/src/main.cpp.obj: src/main.cpp \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/specfun.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/std_abs.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_algobase.h \
-  C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_bvector.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_construct.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_function.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_iterator.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_iterator_base_funcs.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_iterator_base_types.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_pair.h \
-  C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_uninitialized.h \
-  C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_vector.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/streambuf.tcc \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/streambuf_iterator.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/string_view.tcc \
@@ -68,11 +66,11 @@ CMakeFiles/main.dir/src/main.cpp.obj: src/main.cpp \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/uses_allocator.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/uses_allocator_args.h \
   C:/msys64/ucrt64/include/c++/13.2.0/bits/utility.h \
-  C:/msys64/ucrt64/include/c++/13.2.0/bits/vector.tcc \
   C:/msys64/ucrt64/include/c++/13.2.0/cctype \
   C:/msys64/ucrt64/include/c++/13.2.0/cerrno \
   C:/msys64/ucrt64/include/c++/13.2.0/clocale \
   C:/msys64/ucrt64/include/c++/13.2.0/cmath \
+  C:/msys64/ucrt64/include/c++/13.2.0/compare \
   C:/msys64/ucrt64/include/c++/13.2.0/cstddef \
   C:/msys64/ucrt64/include/c++/13.2.0/cstdio \
   C:/msys64/ucrt64/include/c++/13.2.0/cstdlib \
@@ -116,7 +114,6 @@ CMakeFiles/main.dir/src/main.cpp.obj: src/main.cpp \
   C:/msys64/ucrt64/include/c++/13.2.0/tuple \
   C:/msys64/ucrt64/include/c++/13.2.0/type_traits \
   C:/msys64/ucrt64/include/c++/13.2.0/typeinfo \
-  C:/msys64/ucrt64/include/c++/13.2.0/vector \
   C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/atomic_word.h \
   C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++allocator.h \
   C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -168,11 +165,13 @@ CMakeFiles/main.dir/src/main.cpp.obj: src/main.cpp \
   src/trinary.h
 
 
-C:/msys64/ucrt64/include/_mingw_stat64.h:
-
 C:/msys64/ucrt64/include/c++/13.2.0/bits/basic_string.h:
 
+C:/msys64/ucrt64/include/c++/13.2.0/array:
+
 src/main.cpp:
+
+C:/msys64/ucrt64/include/_mingw_stat64.h:
 
 C:/msys64/ucrt64/include/_mingw_secapi.h:
 
@@ -183,16 +182,6 @@ C:/msys64/ucrt64/include/c++/13.2.0/bits/move.h:
 C:/msys64/ucrt64/include/_mingw.h:
 
 C:/msys64/ucrt64/include/_mingw_mac.h:
-
-C:/msys64/ucrt64/include/c++/13.2.0/bits/specfun.h:
-
-C:/msys64/ucrt64/include/limits.h:
-
-C:/msys64/ucrt64/include/c++/13.2.0/bits/range_access.h:
-
-C:/msys64/ucrt64/include/c++/13.2.0/bit:
-
-C:/msys64/ucrt64/include/c++/13.2.0/backward/binders.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/string:
 
@@ -206,6 +195,16 @@ C:/msys64/ucrt64/include/c++/13.2.0/bits/functexcept.h:
 
 C:/msys64/ucrt64/include/_timeval.h:
 
+C:/msys64/ucrt64/include/c++/13.2.0/bits/specfun.h:
+
+C:/msys64/ucrt64/include/limits.h:
+
+C:/msys64/ucrt64/include/c++/13.2.0/bits/range_access.h:
+
+C:/msys64/ucrt64/include/c++/13.2.0/bit:
+
+C:/msys64/ucrt64/include/c++/13.2.0/backward/binders.h:
+
 C:/msys64/ucrt64/include/c++/13.2.0/bits/alloc_traits.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/bits/allocator.h:
@@ -215,6 +214,8 @@ C:/msys64/ucrt64/include/c++/13.2.0/bits/basic_ios.tcc:
 C:/msys64/ucrt64/include/c++/13.2.0/bits/basic_string.tcc:
 
 C:/msys64/ucrt64/include/c++/13.2.0/bits/hash_bytes.h:
+
+C:/msys64/ucrt64/include/c++/13.2.0/compare:
 
 C:/msys64/ucrt64/include/c++/13.2.0/bits/char_traits.h:
 
@@ -235,6 +236,8 @@ C:/msys64/ucrt64/include/c++/13.2.0/tr1/modified_bessel_func.tcc:
 C:/msys64/ucrt64/include/c++/13.2.0/bits/cpp_type_traits.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/bits/cxxabi_forced.h:
+
+C:/msys64/ucrt64/include/c++/13.2.0/bits/uses_allocator.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/bits/cxxabi_init_exception.h:
 
@@ -265,8 +268,6 @@ C:/msys64/ucrt64/include/c++/13.2.0/bits/locale_classes.tcc:
 C:/msys64/ucrt64/include/c++/13.2.0/bits/locale_facets.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/bits/locale_facets.tcc:
-
-C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_bvector.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/cctype:
 
@@ -312,25 +313,15 @@ C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_construct.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_iterator_base_types.h:
 
-C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_uninitialized.h:
-
-C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_vector.h:
-
 C:/msys64/ucrt64/include/c++/13.2.0/bits/string_view.tcc:
 
 C:/msys64/ucrt64/include/c++/13.2.0/bits/stringfwd.h:
-
-C:/msys64/ucrt64/include/c++/13.2.0/bits/uses_allocator.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/bits/uses_allocator_args.h:
 
 C:/msys64/ucrt64/include/corecrt_startup.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/bits/utility.h:
-
-C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/os_defines.h:
-
-C:/msys64/ucrt64/include/c++/13.2.0/bits/vector.tcc:
 
 C:/msys64/ucrt64/include/wctype.h:
 
@@ -412,10 +403,6 @@ C:/msys64/ucrt64/include/c++/13.2.0/type_traits:
 
 C:/msys64/ucrt64/include/c++/13.2.0/typeinfo:
 
-C:/msys64/ucrt64/include/sec_api/wchar_s.h:
-
-C:/msys64/ucrt64/include/c++/13.2.0/vector:
-
 C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/atomic_word.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++allocator.h:
@@ -433,6 +420,8 @@ C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_inline.h:
 C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr-default.h:
 
 C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr.h:
+
+C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/os_defines.h:
 
 C:/msys64/ucrt64/include/corecrt.h:
 
@@ -471,6 +460,8 @@ C:/msys64/ucrt64/include/sec_api/stdio_s.h:
 C:/msys64/ucrt64/include/sec_api/stdlib_s.h:
 
 C:/msys64/ucrt64/include/sec_api/sys/timeb_s.h:
+
+C:/msys64/ucrt64/include/sec_api/wchar_s.h:
 
 C:/msys64/ucrt64/include/signal.h:
 
