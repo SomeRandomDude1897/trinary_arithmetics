@@ -7,24 +7,25 @@
 template <size_t seq_size>
 
 class trinary {
+  typedef unsigned char trit;
+  typedef std::array<trit, 3> tryte;
+
  private:
-  std::pair<unsigned char, unsigned char> sum(unsigned char a,
-                                              unsigned char b) {
-    return ((a + b == 0)   ? (std::pair<unsigned char, unsigned char>){0, 0}
-            : (a + b == 1) ? (std::pair<unsigned char, unsigned char>){1, 0}
-            : (a + b == 3) ? (std::pair<unsigned char, unsigned char>){0, 0}
-            : (a == 1 && a + b == 2)
-                ? (std::pair<unsigned char, unsigned char>){2, 1}
+  std::pair<trit, trit> sum(trit a, trit b) {
+    return ((a + b == 0)             ? (std::pair<trit, trit>){0, 0}
+            : (a + b == 1)           ? (std::pair<trit, trit>){1, 0}
+            : (a + b == 3)           ? (std::pair<trit, trit>){0, 0}
+            : (a == 1 && a + b == 2) ? (std::pair<trit, trit>){2, 1}
             : ((a == 2 && b == 0) || (b == 2 && a == 0))
-                ? (std::pair<unsigned char, unsigned char>){2, 0}
-                : (std::pair<unsigned char, unsigned char>){1, 2});
+                ? (std::pair<trit, trit>){2, 0}
+                : (std::pair<trit, trit>){1, 2});
   }
-  std::array<unsigned char, seq_size> seq;
-  std::array<unsigned char, seq_size> frac_seq;
+  std::array<trit, seq_size> seq;
+  std::array<trit, seq_size> frac_seq;
 
  public:
-  std::array<unsigned char, seq_size>* getSeqPointer() { return &seq; }
-  std::array<unsigned char, seq_size>* getFracSeqPointer() { return &frac_seq; }
+  std::array<trit, seq_size>* getSeqPointer() { return &seq; }
+  std::array<trit, seq_size>* getFracSeqPointer() { return &frac_seq; }
   void draw_raw() {
     for (int i = 0; i < seq_size; i++) {
       std::cout << (int)(seq[i]);
@@ -82,6 +83,7 @@ class trinary {
     new_trinary += *this;
     return new_trinary;
   }
+
   double to_double() {
     double res = 0;
     for (int i = 0; i < seq_size; i++) {
@@ -105,10 +107,10 @@ class trinary {
       throw std::logic_error(
           "Cannot summarize trinary numbers of different size!!");
     } else {
-      unsigned char left = 0;
-      unsigned char left_temp = 0;
+      trit left = 0;
+      trit left_temp = 0;
       for (int i = seq_size - 1; i > -1; i--) {
-        std::pair<unsigned char, unsigned char> rs =
+        std::pair<trit, trit> rs =
             sum(*(inp.getFracSeqPointer()->begin() + i), frac_seq[i]);
         left_temp = rs.second;
         rs = sum(rs.first, left);
@@ -116,7 +118,7 @@ class trinary {
         frac_seq[i] = rs.first;
       }
       for (int i = seq_size - 1; i > -1; i--) {
-        std::pair<unsigned char, unsigned char> rs =
+        std::pair<trit, trit> rs =
             sum(*(inp.getSeqPointer()->begin() + i), seq[i]);
         left_temp = rs.second;
         rs = sum(rs.first, left);
@@ -136,14 +138,14 @@ class trinary {
     bool sign = (number < 0);
     unsigned long long whole_part =
         static_cast<unsigned long long>(abs(number / 1));
-    unsigned long long pow_10 = pow(10, seq_size);
-    unsigned long long frac_part;
+    double frac_part;
     if (sign) {
-      frac_part = static_cast<unsigned long long>((abs(number / 1) - number) *
-                                                  pow_10 / 10);
+      frac_part = ((abs(number / 1) + number));
     } else {
-      frac_part = static_cast<unsigned long long>((number - abs(number / 1)) *
-                                                  pow_10 / 10);
+      frac_part = ((number - abs(number / 1)));
+    }
+    if (fabs(frac_part) > 0.5) {
+      whole_part++;
     }
     int j = 0;
     while (whole_part > 0) {
@@ -159,33 +161,54 @@ class trinary {
       }
       j++;
     }
-    int accuracy_iterator = 0;
-    short left = 0;
-    while (accuracy_iterator < seq_size) {
-      frac_part *= 3;
-      short temp = frac_part / (pow_10 / 10) + left;
-      if (temp >= 2) {
-        left = 1;
-      } else {
-        left = 0;
+    if (frac_part != 0) {
+      if (fabs(frac_part) > 0.5) {
+        sign = !sign;
+        frac_part = 1 - fabs(frac_part);
       }
-      if (frac_part > pow_10 / 10) {
-        frac_part %= (pow_10 / 10);
-      }
-      if (accuracy_iterator > 0) {
-        if (!sign) {
-          frac_seq[accuracy_iterator - 1] = (temp == 0     ? 0
-                                             : (temp == 1) ? 1
-                                             : (temp == 2) ? 2
-                                                           : 0);
-        } else {
-          frac_seq[accuracy_iterator - 1] = (temp == 0     ? 0
-                                             : (temp == 1) ? 2
-                                             : (temp == 2) ? 1
-                                                           : 0);
+      int tristate = -1;
+      if (frac_part < (1.0 / 3.0)) {
+        while (pow(3, tristate) > frac_part) {
+          tristate--;
         }
+        tristate++;
       }
-      accuracy_iterator++;
+
+      if (sign) {
+        frac_seq[tristate + 1] = 2;
+      } else {
+        frac_seq[tristate + 1] = 1;
+      }
+      int accuracy_iterator = tristate + 2;
+      int power = tristate;
+
+      double balance = frac_part;
+      bool recount_flag = true;
+      while (accuracy_iterator < seq_size) {
+        double comp_value = pow(3, power);
+        if (recount_flag) {
+          if (balance < 0) {
+            balance = comp_value + balance;
+          } else if (power == -1) {
+            balance = comp_value - balance;
+          } else {
+            balance = balance - comp_value;
+          }
+        }
+        if (fabs(balance) >= comp_value / 6) {
+          if (balance < 0) {
+            frac_seq[accuracy_iterator] = ((sign) ? 2 : 1);
+          } else {
+            frac_seq[accuracy_iterator] = ((sign) ? 1 : 2);
+          }
+          recount_flag = true;
+        } else {
+          frac_seq[accuracy_iterator] = 0;
+          recount_flag = false;
+        }
+        power--;
+        accuracy_iterator++;
+      }
     }
   }
 };
