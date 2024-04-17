@@ -3,10 +3,15 @@
 #include "trinary.h"
 
 int main() {
-  trinary<16> trit1(8000.0);
-  trinary<16> trit2(0.8);
-  std::cout << (trit1 * trit2).to_double() << '\n';
-  std::cout << trit2.to_double() << '\n';
+  trinary<32> trit1(12.5);
+  trinary<32> trit2(0.5);
+  std::cout << (trit2 - trit1).to_double() << '\n';
+  std::cout << (trit1 / trit2).to_double() << '\n';
+  trit1 += trit2;
+  std::cout << trit1.to_double() << '\n';
+  std::cout << trit1 << '\n';
+  trit1 *= trit2;
+  std::cout << trit1.to_double() << '\n';
   std::cout << trit1 << '\n';
   return 0;
 }

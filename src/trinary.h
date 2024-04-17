@@ -5,12 +5,17 @@
 #include <cmath>
 
 template <size_t seq_size>
+//Я не так понял задание и думал, что надо реализовать арифметику на троичной
+//сбалансированной системе счисления.
 
 class trinary {
+  // технически что-то похожее на трит и трайт я реализовал, использовал
+  // unsigned char потому что памяти мало занимает
   typedef unsigned char trit;
   typedef std::array<trit, 3> tryte;
 
  private:
+  // сложение двух тритов по правилам сложения в сбалансированной системе
   std::pair<trit, trit> sum(trit a, trit b) {
     return ((a + b == 0)             ? (std::pair<trit, trit>){0, 0}
             : (a + b == 1)           ? (std::pair<trit, trit>){1, 0}
@@ -20,19 +25,23 @@ class trinary {
                 ? (std::pair<trit, trit>){2, 0}
                 : (std::pair<trit, trit>){1, 2});
   }
+  // умножение двух тритов по правилам умножения в сбалансированной системе
   trit multiply(trit a, trit b) {
     return ((a == 0 || b == 0)   ? 0
             : (a == 1 && b == 1) ? 1
             : (a == 2 ^ b == 2)  ? 2
                                  : 1);
   }
+  // здесь храним целую часть числа
   std::array<trit, seq_size> seq;
-
+  // здесь храним дробную часть числа
   std::array<trit, seq_size> frac_seq;
 
  public:
   std::array<trit, seq_size>* getSeqPointer() { return &seq; }
+
   std::array<trit, seq_size>* getFracSeqPointer() { return &frac_seq; }
+
   friend std::ostream& operator<<(std::ostream& os, trinary inp) {
     for (int i = 0; i < inp.getSeqPointer()->size(); i++) {
       os << static_cast<int>(*(inp.getSeqPointer()->begin() + i));
@@ -43,6 +52,11 @@ class trinary {
     }
     return os;
   }
+
+  // в сбалансированной системе счисления положительное число отличается от
+  // отрицательного тем, что в нем все числа кроме нулей изменены на
+  // противоположные, поэтому здесь я реализовал инвертирование тритов для
+  // получения такого эффекта
   void flip_trits() {
     for (int i = 0; i < seq_size; i++) {
       seq[i] = ((seq[i] == 2) ? 1 : (seq[i] == 1) ? 2 : 0);
@@ -51,6 +65,7 @@ class trinary {
       frac_seq[i] = ((frac_seq[i] == 2) ? 1 : (frac_seq[i] == 1) ? 2 : 0);
     }
   }
+
   trinary operator*(trinary inp) {
     if (inp.getSeqPointer()->size() != seq_size) {
       throw std::logic_error(
@@ -61,6 +76,7 @@ class trinary {
     new_trinary *= *this;
     return new_trinary;
   }
+
   trinary operator/(trinary inp) {
     if (inp.getSeqPointer()->size() != seq_size) {
       throw std::logic_error(
@@ -71,18 +87,20 @@ class trinary {
     new_trinary /= inp;
     return new_trinary;
   }
+
   void operator/=(trinary inp) {
     if (inp.getSeqPointer()->size() != seq_size) {
       throw std::logic_error(
           "Cannot divide trinary numbers of different size!!");
     }
     if (inp.to_double() != 0) {
-      trinary conjugate(1.0 / inp.to_double());
+      trinary<seq_size> conjugate(1.0 / inp.to_double());
       *this *= conjugate;
     } else {
       throw std::logic_error("Cannot divide number by zero!!");
     }
   }
+
   void operator*=(trinary inp) {
     if (inp.getSeqPointer()->size() != seq_size) {
       throw std::logic_error(
@@ -126,6 +144,7 @@ class trinary {
     seq = *inp.getSeqPointer();
     frac_seq = *inp.getFracSeqPointer();
   }
+
   trinary operator-(trinary inp) {
     if (inp.getSeqPointer()->size() != seq_size) {
       throw std::logic_error(
@@ -136,6 +155,7 @@ class trinary {
     new_trinary -= inp;
     return new_trinary;
   }
+
   void operator-=(trinary inp) {
     if (inp.getSeqPointer()->size() != seq_size) {
       throw std::logic_error(
@@ -145,6 +165,7 @@ class trinary {
     reverse_inp.flip_trits();
     *this += reverse_inp;
   }
+
   trinary operator+(trinary inp) {
     if (inp.getSeqPointer()->size() != seq_size) {
       throw std::logic_error(
@@ -174,6 +195,7 @@ class trinary {
     }
     return res;
   }
+
   void operator+=(trinary inp) {
     if (inp.getSeqPointer()->size() != seq_size) {
       throw std::logic_error(
@@ -200,6 +222,7 @@ class trinary {
     }
     return;
   }
+
   template <typename B>
   trinary(B number) {
     std::fill(seq.begin(), seq.begin() + seq_size, 0);
